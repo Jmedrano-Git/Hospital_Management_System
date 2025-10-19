@@ -5,5 +5,32 @@
         ➕ Nuevo Paciente
     </a>
 
-</body>
-</html>
+    <table class="min-w-full bg-white border mt-4 rounded-lg shadow">
+        <thead class="bg-blue-800 text-white">
+        <tr>
+            <th class="py-2 px-3 text-left">ID</th>
+            <th class="py-2 px-3 text-left">Nombres</th>
+            <th class="py-2 px-3 text-left">Apellidos</th>
+            <th class="py-2 px-3 text-left">DNI</th>
+            <th class="py-2 px-3 text-left">Estado</th>
+            <th class="py-2 px-3 text-center">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${pacientes}" class="border-b hover:bg-gray-50">
+            <td class="py-2 px-3" th:text="${p.idPaciente}"></td>
+            <td class="py-2 px-3" th:text="${p.nombres}"></td>
+            <td class="py-2 px-3" th:text="${p.apellidos}"></td>
+            <td class="py-2 px-3" th:text="${p.dni}"></td>
+            <td class="py-2 px-3">
+                <span th:text="${p.estado}" class="px-2 py-1 rounded text-white"
+                      th:classappend="${p.estado == 'activo'} ? 'bg-green-600' : 'bg-red-600'"></span>
+            </td>
+            <td class="py-2 px-3 text-center space-x-2">
+                <a th:href="@{/pacientes/editar/{id}(id=${p.idPaciente})}" class="text-blue-600 hover:underline">Editar</a>
+                <a th:href="@{/pacientes/desactivar/{id}(id=${p.idPaciente})}" class="text-red-600 hover:underline">Desactivar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
