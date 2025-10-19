@@ -1,0 +1,18 @@
+<div th:fragment="content">
+    <div class="container mt-4">
+        <h2>Registrar Antecedente Médico</h2>
+        <form th:action="@{/historias/guardarAntecedente}" th:object="${antecedente}" method="post">
+            <input type="hidden" th:field="*{historiaClinica.idHistoria}">
+            <div class="form-group mb-3">
+                <label>Tipo:</label>
+                <input type="text" class="form-control" th:field="*{tipo}" required>
+            </div>
+            <div class="form-group mb-3">
+                <label>Descripción:</label>
+                <textarea class="form-control" th:field="*{descripcion}" required></textarea>
+            </div>
+            <button class="btn btn-success">Guardar</button>
+            <a th:href="@{'/historias/' + ${antecedente.historiaClinica.idHistoria}}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>

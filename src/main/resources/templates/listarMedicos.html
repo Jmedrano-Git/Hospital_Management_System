@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<body>
+<section th:fragment="content">
+    <div class="container mt-4">
+        <h3 class="text-primary fw-bold mb-4">Médicos</h3>
+        <h6 class="text-secondary mb-3">Listado de Médicos</h6>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <a th:href="@{/medicos/nuevo}" class="btn btn-primary">
+                <i class="bi bi-person-plus"></i> Nuevo médico
+            </a>
+        </div>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-primary">
+                        <tr>
+                            <th>#</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Colegiatura</th>
+                            <th>Teléfono</th>
+                            <th>Correo</th>
+                            <th>Estado</th>
+                            <th>Especialidades</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="m, it : ${medicos}">
+                            <td th:text="${it.index + 1}"></td>
+                            <td th:text="${m.nombres}"></td>
+                            <td th:text="${m.apellidos}"></td>
+                            <td th:text="${m.colegiatura}"></td>
+                            <td th:text="${m.telefono}"></td>
+                            <td th:text="${m.correo}"></td>
+                            <td>
+                                <span class="badge"
+                                      th:classappend="${m.estado == 'activo'} ? 'bg-success' : 'bg-secondary'"
+                                      th:text="${m.estado}">Activo</span>
+                            </td>
+                            <td>
+                                <span class="badge bg-light text-dark me-1"
+                                      th:each="me : ${m.medicoEspecialidades}"
+                                      th:text="${me.especialidad.nombre}">Cardiología</span>
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    <a class="btn btn-warning text-dark" th:href="@{|/medicos/editar/${m.idMedico}|}">
+                                        <i class="bi bi-pencil-square"></i> Editar
+                                    </a>
+                                    <a class="btn btn-danger"
+                                       th:href="@{|/medicos/eliminar/${m.idMedico}|}"
+                                       onclick="return confirm('¿Eliminar médico?')">
+                                        <i class="bi bi-trash"></i> Eliminar
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

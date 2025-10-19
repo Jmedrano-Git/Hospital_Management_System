@@ -1,0 +1,22 @@
+<div th:fragment="content">
+    <div class="container mt-4">
+        <h2>Historia Clínica del Paciente</h2>
+        <p><strong>Fecha de Apertura:</strong> [[${historia.fechaApertura}]]</p>
+        <p><strong>Observaciones:</strong> [[${historia.observaciones}]]</p>
+
+        <h4 class="mt-4">Antecedentes Médicos</h4>
+        <a th:href="@{'/historias/' + ${historia.idHistoria} + '/nuevo'}" class="btn btn-primary mb-3">+ Nuevo Antecedente</a>
+
+        <table class="table table-striped">
+            <thead>
+            <tr><th>Tipo</th><th>Descripción</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="a : ${antecedentes}">
+                <td style="align-items: center" th:text="${a.tipo}"></td>
+                <td style="align-items: center" th:text="${a.descripcion}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

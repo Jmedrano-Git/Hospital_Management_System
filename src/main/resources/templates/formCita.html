@@ -1,0 +1,50 @@
+<div th:fragment="content">
+    <div class="container mt-4">
+        <h3 th:text="${title}"></h3>
+
+        <form th:action="@{/citas/guardar}" th:object="${cita}" method="post" class="mt-3">
+            <input type="hidden" th:field="*{idCita}">
+
+            <div class="mb-3">
+                <label class="form-label">Paciente</label>
+                <select class="form-select" name="paciente" th:field="*{paciente}">
+                    <option value="">Seleccione un paciente</option>
+                    <option th:each="p : ${pacientes}" th:value="${p.idPaciente}" th:text="${p.nombres + ' ' + p.apellidos}"></option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Médico</label>
+                <select class="form-select" name="medico" th:field="*{medico}">
+                    <option value="">Seleccione un médico</option>
+                    <option th:each="m : ${medicos}" th:value="${m.idMedico}" th:text="${m.nombres + ' ' + m.apellidos}"></option>
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Fecha</label>
+                    <input type="date" class="form-control" th:field="*{fecha}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Hora</label>
+                    <input type="time" class="form-control" th:field="*{hora}">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Estado</label>
+                <select class="form-select" th:field="*{estado}">
+                    <option value="Programada">Programada</option>
+                    <option value="Atendida">Atendida</option>
+                    <option value="Cancelada">Cancelada</option>
+                </select>
+            </div>
+
+            <div class="text-end">
+                <a th:href="@{/citas}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>

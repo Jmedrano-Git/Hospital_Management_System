@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface PacienteService {
     List<Paciente> listar();
-    void grabar(Paciente paciente);
-    Paciente buscar(Integer id);
-    void desactivar(Integer id);
+    void guardar(Paciente p);
+    Paciente buscarPorId(Integer id);
+    void eliminar(Integer id);
 }

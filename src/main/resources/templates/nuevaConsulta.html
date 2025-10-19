@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<body>
+<section th:fragment="content">
+    <div class="container mt-4">
+        <h3 class="mb-4 text-primary fw-bold">Nueva Consulta</h3>
+
+        <div class="card shadow-sm border-0 rounded-3">
+            <div class="card-body">
+                <form class="row g-3" th:action="@{/consultas/guardar}" th:object="${consulta}" method="post">
+                    <input type="hidden" th:field="*{idConsulta}" />
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">Fecha</label>
+                        <input type="date" class="form-control" th:field="*{fecha}" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">Hora</label>
+                        <input type="time" class="form-control" th:field="*{hora}" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">Motivo</label>
+                        <input class="form-control" th:field="*{motivoConsulta}" required>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label fw-semibold">Observaciones</label>
+                        <textarea class="form-control" th:field="*{observaciones}" rows="3"></textarea>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Paciente</label>
+                        <select class="form-select" th:field="*{paciente.idPaciente}">
+                            <option th:each="p : ${pacientes}" th:value="${p.idPaciente}" th:text="${p.nombres + ' ' + p.apellidos}"></option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Médico</label>
+                        <select class="form-select" th:field="*{medico.idMedico}">
+                            <option th:each="m : ${medicos}" th:value="${m.idMedico}" th:text="${m.nombres + ' ' + m.apellidos}"></option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 mt-3">
+                        <a th:href="@{/consultas}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Volver
+                        </a>
+                        <button class="btn btn-primary">
+                            <i class="bi bi-save"></i> Guardar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

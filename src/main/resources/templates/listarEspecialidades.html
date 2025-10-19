@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<body>
+<section th:fragment="content">
+    <div class="container mt-4">
+
+        <h3 class="mb-4 text-primary fw-bold">Especialidades</h3>
+        <h6 class="text-muted mb-3">Listado de Especialidades</h6>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <a th:href="@{/especialidades/nuevo}" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Nueva especialidad
+            </a>
+        </div>
+
+        <div class="card shadow-sm border-0 rounded-3">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-primary">
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th style="width:140px">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="e, it : ${especialidades}">
+                            <td th:text="${it.index + 1}">1</td>
+                            <td th:text="${e.nombre}">-</td>
+                            <td th:text="${e.descripcion}">-</td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    <a class="btn btn-warning text-white" th:href="@{|/especialidades/editar/${e.idEspecialidad}|}">
+                                        <i class="bi bi-pencil-square"></i> Editar
+                                    </a>
+                                    <a class="btn btn-danger" th:href="@{|/especialidades/eliminar/${e.idEspecialidad}|}"
+                                       onclick="return confirm('¿Eliminar especialidad?')">
+                                        <i class="bi bi-trash"></i> Eliminar
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+</body>
+</html>

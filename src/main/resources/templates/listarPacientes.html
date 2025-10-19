@@ -1,36 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pacientes</title>
+</head>
+<body>
 <div th:fragment="content">
-    <h1 class="text-2xl font-bold mb-4 text-blue-800">Listado de Pacientes</h1>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="text-primary fw-bold">Pacientes</h2>
+            <a th:href="@{/pacientes/nuevo}" class="btn btn-primary">
+                <i class="bi bi-person-plus"></i> Nuevo paciente
+            </a>
+        </div>
 
-    <a th:href="@{/pacientes/nuevo}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-        ➕ Nuevo Paciente
-    </a>
-
-    <table class="min-w-full bg-white border mt-4 rounded-lg shadow">
-        <thead class="bg-blue-800 text-white">
-        <tr>
-            <th class="py-2 px-3 text-left">ID</th>
-            <th class="py-2 px-3 text-left">Nombres</th>
-            <th class="py-2 px-3 text-left">Apellidos</th>
-            <th class="py-2 px-3 text-left">DNI</th>
-            <th class="py-2 px-3 text-left">Estado</th>
-            <th class="py-2 px-3 text-center">Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="p : ${pacientes}" class="border-b hover:bg-gray-50">
-            <td class="py-2 px-3" th:text="${p.idPaciente}"></td>
-            <td class="py-2 px-3" th:text="${p.nombres}"></td>
-            <td class="py-2 px-3" th:text="${p.apellidos}"></td>
-            <td class="py-2 px-3" th:text="${p.dni}"></td>
-            <td class="py-2 px-3">
-                <span th:text="${p.estado}" class="px-2 py-1 rounded text-white"
-                      th:classappend="${p.estado == 'activo'} ? 'bg-green-600' : 'bg-red-600'"></span>
-            </td>
-            <td class="py-2 px-3 text-center space-x-2">
-                <a th:href="@{/pacientes/editar/{id}(id=${p.idPaciente})}" class="text-blue-600 hover:underline">Editar</a>
-                <a th:href="@{/pacientes/desactivar/{id}(id=${p.idPaciente})}" class="text-red-600 hover:underline">Desactivar</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <table class="table table-hover align-middle">
+                    <thead class="table-primary">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombres</th>
+                        <th scope="col">Apellidos</th>
+                        <th scope="col">DNI</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col" class="text-center">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p : ${pacientes}">
+                        <td th:text="${p.idPaciente}"></td>
+                        <td th:text="${p.nombres}"></td>
+                        <td th:text="${p.apellidos}"></td>
+                        <td th:text="${p.dni}"></td>
+                        <td th:text="${p.telefono}"></td>
+                        <td>
+                            <span th:if="${p.correo == null or #strings.isEmpty(p.correo)}" class="text-muted fst-italic">Sin correo</span>
+                            <span th:if="${p.correo != null and !#strings.isEmpty(p.correo)}" th:text="${p.correo}"></span>
+                        </td>
+                        <td th:text="${p.direccion}"></td>
+                        <td>
+                            <span th:text="${p.estado}" th:classappend="${p.estado == 'Activo'} ? 'badge bg-success' : 'badge bg-danger'"></span>
+                        </td>
+                        <td class="text-center">
+                            <a th:href="@{/pacientes/editar/{id}(id=${p.idPaciente})}" class="btn btn-warning btn-sm me-1">
+                                <i class="bi bi-pencil-square"></i> Editar
+                            </a>
+                            <a th:href="@{/pacientes/eliminar/{id}(id=${p.idPaciente})}"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('¿Seguro que deseas eliminar este paciente?');">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </a>
+                            <a th:href="@{'/historias/' + ${p.idPaciente}}" class="btn btn-info btn-sm">
+                                Ver Historia Clínica
+                            </a>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+</body>
+</html>
