@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div th:fragment="content">
+    <h1 class="text-2xl font-bold mb-4 text-blue-800">Listado de Pacientes</h1>
+
+    <a th:href="@{/pacientes/nuevo}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        ➕ Nuevo Paciente
+    </a>
 
 </body>
 </html>
