@@ -1,4 +1,7 @@
 package com.medrano.eco02_medrano.repository;
 
-public class PacienteRepository {
+import com.medrano.eco02_medrano.entity.Paciente;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PacienteRepository extends JpaRepository<Paciente, Integer> {
 }
